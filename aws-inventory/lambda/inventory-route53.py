@@ -135,7 +135,7 @@ def discover_zones(account):
 
         # Process this batch
         for zone in response['HostedZones']:
-            process_zone(zone, account)
+            process_zone(zone, account, route53_client)
 
         # Try and get some more
         try:
@@ -149,10 +149,10 @@ def discover_zones(account):
 
     # Finish Up
     for zone in response['HostedZones']:
-        process_zone(zone, account)
+        process_zone(zone, account, route53_client)
 
 
-def process_zone(zone, account):
+def process_zone(zone, account, route53_client):
 
     resource_item = {}
     resource_item['awsAccountId']                   = account.account_id
